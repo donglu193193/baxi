@@ -1,0 +1,45 @@
+html{
+    background: white;
+}
+h4{
+    background: white;
+    padding: 10px 0;
+    margin: 0;
+}
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+svg{
+    font-size: 18px;
+}
+table tr{
+    padding: 10px 0;
+}
+table thead tr {
+    background: #DEDEDE;
+    color: #666666;
+}
+table td{
+    color: #9A9A9A;
+}
+.coin2{
+    background: rgb(0, 174, 183);
+    border-bottom: 1px solid white;
+    cursor: pointer;
+    line-height: 30px;
+    margin-bottom: 0px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 14px;
+}
+.coin2 i{
+    margin-right: 10px;
+    text-align: left
+}
+.coin-2{
+    padding: 20px;
+    background: #F4F4F4
+}

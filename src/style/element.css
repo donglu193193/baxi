@@ -1,0 +1,35 @@
+    .el-collapse-item__header{
+    	background: rgb(0, 174, 183)!important;
+      color: white!important;
+      padding: 0px 20px;
+    }
+    .el-form-item__label{
+      width: 100%;
+      text-align: left!important;
+      padding:0  20px!important;
+    }
+    .el-form-item__content{
+      margin-left: 0;
+    }
+    .el-form{
+    	background: #F4F4F4;
+    	padding: 20px;
+    }
+    .el-form-item{
+    	text-align: center;
+    	
+    }
+    .el-input{
+    	width: 80%!important;
+    }
+    .el-select{
+    	width: 80%!important;
+    }
+    .el-dialog__headerbtn{
+    	background: white!important;
+    }
+    .panel-body table thead tr th{
+		text-align: center;
+    }
+
+
