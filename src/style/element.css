@@ -6,7 +6,6 @@
     .el-form-item__label{
       width: 100%;
       text-align: left!important;
-      padding:0  20px!important;
     }
     .el-form-item__content{
       margin-left: 0;
@@ -20,16 +19,22 @@
     	
     }
     .el-input{
-    	width: 80%!important;
+    	/*width: 100%!important;*/
     }
     .el-select{
-    	width: 80%!important;
+    	width: 100%!important;
     }
     .el-dialog__headerbtn{
     	background: white!important;
     }
     .panel-body table thead tr th{
 		text-align: center;
+    }
+    .el-collapse-item__wrap{
+        border-bottom: none!important;
+    }
+    .el-collapse-item__content{
+        background: #F4F4F4!important;
     }
 
 

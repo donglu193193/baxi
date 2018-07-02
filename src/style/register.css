@@ -12,9 +12,9 @@ label{
 	color: #9A9A9A;
 }
 button{
-	background: #00AEB7!important;
-	border-color: #00AEB7!important;
-	color: white!important;
+	background: #00AEB7;
+	border-color: #00AEB7;
+	color: white;
 	padding: 15px 20px!important;
 }
 .submit{
@@ -25,7 +25,7 @@ form p{
 	padding: 20px ;
 }
 form input{
-	height: 50px!important;
+	height: 40px!important;
 }
 .form{
 	padding: 30px 0;

@@ -1,12 +1,12 @@
 <template id="currency">
-    <div class="content" style="padding-bottom:60px">
+    <div class="content" style="padding-bottom:60px" v-loading="loading">
     	<div class="clearfix" style="height:auto">
       	<v-header></v-header>
         <div style="width: 70%;height:auto;float:right;padding:20px" id="right">
             <div class="tit">
                 <h3>{{$t('title["new"]')}}</h3>
             </div>
-            <el-collapse accordion v-model="activeName">
+            <el-collapse  v-model="activeName">
               <h4>{{$t('title["aa"]')}}</h4>
               <el-collapse-item name="1">
                 <template slot="title" >
@@ -14,7 +14,7 @@
                 </template>
                 <el-form ref="form"  >
                   <el-form-item :label="$t('input.bank')">
-                    <el-select  placeholder="请选择银行" v-model="form.bank">
+                    <el-select  :placeholder="$t('placeholder.selectBank')" v-model="form.bank">
                       <el-option label="1" value="shanghai"></el-option>
                       <el-option label="2" value="beijing"></el-option>
                     </el-select>
@@ -50,90 +50,114 @@
                 </el-form>
               </el-collapse-item>
               <h4>{{$t('title["toggle41"]')}}</h4>
-              <el-collapse-item v-for="(item,index) in list" >
-                <template slot="title" >
-                  {{item.coin}}
-                </template>
-                <el-form ref="form"  >
-                  <el-form-item :label="$t('input.wallet')">
-                    <el-input v-model="form.address" disabled></el-input>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="primary" >{{$t('button["copy"]')}}</el-button>
-                    <el-button type="primary"  @click="details = true">{{$t('button["code"]')}}</el-button>
-                  </el-form-item>
-                </el-form>
-              </el-collapse-item>
-
+              
+            </el-collapse>
+            <el-collapse   >
+                <div style="margin-bottom:3px" v-for="(item,index) in list"  @click="getAddress(index,list)">
+                  <el-collapse-item  :name="index"  > 
+                    <template slot="title" >
+                      {{item.shortName}}
+                    </template>
+                    <el-form ref="form1" >
+                      <el-form-item :label="$t('input.wallet')">
+                        <el-input  disabled v-model="form1.walletAddress"></el-input>
+                      </el-form-item>
+                      <el-form-item>
+                        <el-button type="primary" 
+                        v-clipboard:copy="form1.walletAddress"
+                        v-clipboard:success="onCopy"
+                        v-clipboard:error="onError">{{$t('button["copy"]')}}</el-button>
+                        <el-button type="primary"  @click="address(list,index,form1)">{{$t('button["code"]')}}</el-button>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </div>
             </el-collapse>
     	  </div>
         <el-dialog
           title="钱包地址"
           :visible.sync="details"
           width="30%"
-          center>
-            <h3 class="i18n" name="BTC-wallet">CARTEIRA DE BITCOIN（比特币钱包）</h3>
-            <div class="code">
-                <img src="images/1519609898.png" alt="">
-            </div>
+          center >
+            <h5 class="i18n" name="BTC-wallet">{{walletName}}</h5>
+            <!-- <div class="code" id="qrcode"></div> -->
+            <qriously :value="initQCode" :size="138" style="text-align: center;margin-top:20px"/>
             <p class="i18n" name="url">URL da Carteira</p>
-            <p>gdywgwj23563472649hcjsddfnk</p>
-          <span slot="footer" class="dialog-footer">
-            <el-button @click="details = false">取 消</el-button>
-            <el-button type="primary" @click="details = false">确 定</el-button>
-          </span>
-        </el-dialog>
+            <p>{{qrcode}}</p>
+            <span slot="footer" class="dialog-footer">
+              <el-button type="warning" @click="details = false"><i class="el-icon-error"></i>{{$t('button["cancel"]')}}</el-button>
+              <el-button type="success" @click="details = false"><i class="el-icon-success"></i>{{$t('button["sure"]')}}</el-button>
+            </span>
+      </el-dialog>
       </div>
       </div>
+     
     
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
 <script>
 import header from '../components/Trade.vue'
 import '../style/element.css'
+
 export default {
-  name:'currency',
+  name: 'currency',
   components: {
     'v-header': header
   },
-  data(){
-  	return{
-      activeName:'1',
-      details:false,
-      form:{
-        bank:'',
-        address:'gdhdge3742902194'
+  data() {
+    return {
+      loading: false,
+      walletName: '',
+      activeName: '1',
+      details: false,
+      form: {
+        bank: '',
       },
-  		list:[
-  			{
-  				coin:'ETHEREUM',
-  				address:'gdhdge3742902194'
-  			},
-  			{
-  				coin:'ETHEREUM CLASSIC',
-  				address:'gdhdge3742902194'
-  			},
-  			{
-  				coin:'DASH',
-  				address:'gdhdge3742902194'
-  			},
-  			{
-  				coin:'IOTA',
-  				address:'gdhdge3742902194'
-  			},
-  			{
-  				coin:'LITECOIN',
-  				address:'gdhdge3742902194'
-  			},
-  			{
-  				coin:'MONERO',
-  				address:'gdhdge3742902194'
-  			},
-  		]
-  	}
+      form1: {
+        walletAddress: ''
+      },
+      list: [],
+      addressList: [],
+      initQCode: '',
+      qrcode: ''
+    }
   },
-  methods:{
+  created() {
+    this.init();
+  },
+  methods: {
+    init(index) {
+      this.loading = true;
+      this.$get("virtualCurrency/findAll").then(res => {
+        this.loading = false;
+        this.list = res.data;
+      }).catch(res => {
+        this.loading = false;
+      });
+    },
+    getAddress(index) {
+      this.$post("wallet/selWalletaddress", {
+        shortName: this.list[index].shortName,
+        id: sessionStorage.getItem("token")
+      }).then(res => {
+        this.form1.walletAddress = res.data;
+      }).catch(res => {});
+    },
+    address(aa, index) {
+      this.details = true;
+      this.walletName = this.list[index].shortName;
+      console.log(this.form1.walletAddress);
+      this.initQCode = this.form1.walletAddress;
+      this.qrcode = this.form1.walletAddress;
+    },
+    onCopy: function(e) {
+      alert('复制成功！ ')
+    },
+    onError: function(e) {
+      alert('复制失败')
+    }
   }
 }
 </script>
@@ -224,7 +248,7 @@ export default {
         border-radius: 5px;
         color: #9A9A9A;
     }
-    .tit h3{
+    h5{
         text-align: center;
     }
     .mask{
@@ -272,12 +296,24 @@ export default {
     .wallet p{
         text-align: center;
     }
-    .wallet .code{
-        text-align: center;
-        padding: 20px;
+    #qrcode{
+      padding:20px;
+      display: flex;
+      justify-content: center;
+      align-items: center; 
     }
-    .wallet img{
-        width: 30%;
+    .code img{
+        position: absolute;
+        left:50%;
+        transform: translateX(-50%);
     }
-
+    .el-form{
+      padding: 20px 200px;
+    }
+    .el-collapse-item{
+      margin-bottom:10px;
+    }
+    i{
+      margin-right: 5px;
+    }
 </style>

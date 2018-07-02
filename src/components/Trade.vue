@@ -1,202 +1,72 @@
 <template id="trade">
-	<div  class="con-left " style="width:28%;padding:20px">
-   <div class="con-left1" >
-     	<div class="row" style="background: #F4F4F4;margin:0px;padding:15px 10px;" >
+	<div  class="con-left " style="width:28%;padding:20px 10px" >
+   <div class="con-left1">
+     	<div  style="background: #F4F4F4;margin:0px;padding:15px 10px;" >
        	<div class="left1">
-         	<div class="col-md-4">
-           	<ul class="data">
-             	<li>
-               		<p>IOTA</p>
-               		<div>
-                 		<i class="glyphicon glyphicon-bitcoin" style="padding-left: 20px;line-height: 70px"></i>
-               		</div>
-             	</li>
-             	<li>
-               		<div>
-                 		<i class="glyphicon glyphicon-sort" style="padding-left: 20px;line-height: 70px;transform:rotate(90deg);"></i>
-               		</div>
-             	</li>
-             	<li>
-               		<p>BTC</p>
-               		<div>
-                 		<i class="glyphicon glyphicon-bitcoin" style="padding-left: 20px;line-height: 70px"></i>
-               		</div>
-             	</li>
-           	</ul>
-         	</div>
-         	<div class="col-md-8" id="converter">
-             <h3>IOTA (0 , 002424 BTC)<i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i> <span>17.03%</span></h3>
-             <p class="i18n" name="v-t">Volume de Transaçoes(24h)<br>1200,5371673&nbsp;&nbsp;BTC</p>
-         	</div>
+          <el-row>
+            <el-col :span="8"><div class="grid-content bg-purple">
+              <ul class="data" :data="tab">
+              <li>
+                  <p>{{trade}}</p>
+                  <div>
+                    <img :src="url1" alt="" style="width:20px;height:20px;margin-top: 20px">
+                  </div>
+              </li>
+              <li>
+                  <div >
+                    <i class="el-icon-sort" style="padding-left: 20px;transform:rotate(90deg);margin-top:20px"></i>
+
+                  </div>
+              </li>
+              <li>
+                  <p>{{market}}</p>
+                  <div>
+                    <img :src="url2" alt="" style="width:20px;height:20px;margin-top: 20px">
+                  </div>
+              </li>
+            </ul>
+            </div></el-col>
+            <el-col :span="16" style="border-left:1px solid #ccc;padding:10px"><div class="grid-content bg-purple-light">
+              <p style="border-bottom:1px solid #ccc">{{trade}} ({{newPrize}} {{market}})&nbsp;&nbsp;<i :class="increasePrize< 0 ? 'el-icon-caret-bottom':'el-icon-caret-top'" ></i> <span>{{increasePrize}}</span></p>
+             <p class="i18n" name="v-t">Volume de Transaçoes(24h)<br>{{sumamount}}&nbsp;&nbsp;{{market}}</p>
+            </div></el-col>
+          </el-row>
        	</div>
  		  </div>
-<!--    		<div style="width:100%;text-align: left" class="tickers">
-        <div style="margin:10px 0px;background:  #F4F4F4" class="left2">
-           	<p class="toggle11" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px"></i><span class="i18n" name="toggle11">TICKERS</span></p>
-           	<div class="balance">
-             	<div class="search">
-              		<div class="form-group has-success has-feedback">
-                  		<input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
-                  		<span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-                  		<span id="inputSuccess2Status" class="sr-only">(success)</span>
-              		</div>
-              		<ul>
-                		<li class="color">USD</li>
-                		<li>BRL</li>
-                		<li>BTC</li>
-              		</ul>
-             	</div>
-             	<div class="coin-list">
-               		<table class="table">
-                		<tbody>
-                      <tr v-for="(item,index) in list">
-                          <td><img :src="item.url" alt="" style="width:30px;height:30px"></td>
-                          <td>{{item.market}}</td>
-                          <td>{{item.coin}}</td>
-                          <td><i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i> <span>{{item.pre}}</span></td>
-                      </tr>
-                		</tbody>
-            		</table>
-             	</div>
-           	</div>
-        </div>
-        <div style="margin:10px 0px;background:  #F4F4F4" class="left4">
-            <p class="toggle22" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px"></i><span class="i18n" name="toggle12">TRANSACTION</span><span style="float: right">IOTA&nbsp;|&nbsp;BTC</span></p>
-            <div class="trading" style="background:#F4F4F4;padding:20px">
-                <div class="form-group">
-                    <label for="exampleInputEmail1" class="i18n" name="address">Email address</label>
-                    <select name="" id="exampleInputEmail1" class="form-control">
-                      <option value="">1</option>
-                      <option value="">2</option>
-                      <option value="">3</option>
-                    </select>
-                </div>    
-                <div style="width:100%;background:#F4F4F4;" class="clearfix">
-                	<div class="buy " style="background: #F4F4F4">
-                    	<p class="i18n" name="price">Preço</p>
-                    	<div class="buy-con">
-                        	<div><span class="i18n" name="number">Quantidade</span></div>
-                        	<input type="text" placeholder=""/>
-                        	<input type="text" placeholder="Buy price" class="number"/>
-                        	<P >*<span class="i18n" name="max-buy">Max.de comprar </span>:&nbsp;0.0000&nbsp;IOTA</P>
-                        	<button type="button" class="btn btn-success i18n" name="buy">Comprar</button>
-                    	</div>
-                	</div>
-                	<div class="sell" style="background: #F4F4F4">
-                    	<p class="i18n" name="price">Preço</p>
-                    	<div class="sell-con">
-                        	<div><span class="i18n" name="number">Quantidade</span></div>
-                        	<input type="text" />
-                        	<input type="text" placeholder="Selling quantity"/>
-                        	<p >* <span class="i18n" name="max-sell">Max.de vendar</span>:&nbsp;0.0000&nbsp;IOTA</p>
-                        	<button type="button" class="btn btn-danger i18n" name="sell">Vendar</button>
-                    	</div>
-                	</div>
-                </div>
-            </div>
-        </div>
-        <div style="margin:10px 0px;background:  #F4F4F4;height:auto" class="left6">
-            <p class="toggle44" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px"></i> <span class="i18n" name="toggle14">TRADES(交易) </span></p>
-            <div id="trades">
-              	<table class="table">
-                	<thead>
-                  		<tr>
-                    		<th class="i18n" name="time">Tempo</th>
-                        <th class="i18n" name="price">Preço</th>
-                        <th class="i18n" name="number">Quantidade</th>
-                  		</tr>
-                	</thead>
-                	<tbody>
-                    	<tr v-for="(item,index) in list1">
-                      	<td><i class="glyphicon glyphicon-triangle-top"></i>{{item.time}}</td>
-                      	<td>{{item.price}}</td>
-                      	<td>{{item.number}}</td>
-                    	</tr>
-                	</tbody>
-              	</table>
-            </div>
-        </div> -->
-        <el-collapse accordion v-model="activeName">
-            <h4 class="i18n" name="my-wallet">TICKERS</h4>
+        <el-collapse  v-model="activeName">
             <el-collapse-item name="1">
               <template slot="title" >
-                BALANCE
+                TICKERS
               </template>
-              <div style="margin-top: 15px;">
-                <el-input placeholder="请输入内容"  class="input-with-select" style="margin-bottom: 20px">
+              <div style="padding-top: 15px;">
+                <el-input :placeholder="$t('placeholder.pleaseCon')"  class="input-with-select" style="margin-bottom: 20px">
                   <el-button slot="append" icon="el-icon-search" style="padding:14px 15px"></el-button>
                 </el-input>
               </div>
-              <el-tabs type="border-card">
-                <el-tab-pane label="USD">
-                    <el-table :data="tableData" style="width: 100%" :show-header="false" >
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.market }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.coin }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column >
-                        <template slot-scope="scope">
-                          <i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i>
-                          <span>{{ scope.row.pre}}</span>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                </el-tab-pane>
-                <el-tab-pane label="BRL">
-                    <el-table :data="tableData" style="width: 100%">
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.market }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.coin }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column >
-                        <template slot-scope="scope">
-                          <i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i>
-                          <span>{{ scope.row.pre}}</span>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                </el-tab-pane>
-                <el-tab-pane label="BTC">
-                    <el-table :data="tableData" style="width: 100%">
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.market }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column>
-                        <template slot-scope="scope">
-                          <span>{{ scope.row.coin }}</span>
-                        </template>
-                      </el-table-column>
-                      <el-table-column >
-                        <template slot-scope="scope">
-                          <i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i>
-                          <span>{{ scope.row.pre}}</span>
-                        </template>
-                      </el-table-column>
-                    </el-table>
+              <el-tabs type="border-card"   >
+                <el-tab-pane   v-for="(item1,index) in header_list" :key="index" >
+                    <span  slot="label"   @click="get_web_data(item1.basis_name,index)"  style="display: block">
+                      <img :src="item1.mark_url" alt="" style="width:20px;height:20px;vertical-align: middle;">
+                      {{item1.basis_name}}
+                    </span>
+                    <table class="table" id="tickers">
+                        <tr v-for="(item,index) in tab_list" :key="index" v-model='select'   @click="getMarket(item.tradeMarket,item.zhuMarkUrl,item.ziMarkUrl,item.sumamount,item.newPrize,item.increasePrize)" >
+                            <td>{{item.tradeMarket}}</td>
+                            <td><img :src="item.ziMarkUrl" alt="" style="width:20px;height:20px"></td>
+                            <td>{{item.newPrize}}</td>
+                            <td :class="item.increasePrize < 0 ? 'undulating' : 'no-undulating'"><i :class="item.increasePrize< 0 ? 'el-icon-caret-bottom':'el-icon-caret-top'"></i><span>{{item.increasePrize}}</span></td>
+                        </tr>
+                    </table>
                 </el-tab-pane>
               </el-tabs>
             </el-collapse-item>
-            <el-collapse-item name="2">
+            <el-collapse-item name="2" class="trade">
               <template slot="title" >
-               TRANSACTION
+               {{$t('title["交易"]')}}
               </template>
-              <el-form ref="form" :model="form">
+              <el-form ref="form" :model="form" label-width="80px" :label-position="labelPosition">
                 <el-form-item label="Email address">
-                  <el-select v-model="form.address" placeholder="请选择">
+                  <el-select v-model="form.address" :placeholder="$t('placeholder.pleaseSel')">
                     <el-option label="1" value="shanghai"></el-option>
                     <el-option label="2" value="beijing"></el-option>
                   </el-select>
@@ -205,34 +75,38 @@
               <el-row>
                 <el-col :span="12">
                   <div class="grid-content bg-purple">
-                    <el-form ref="form" :model="form">
+                    <el-form ref="form" :model="form1" :label-position="labelPosition" label-width="80px">
                       <p class="i18n" name="price">Preço</p>
-                      <el-form-item label="price">
-                        <el-input type="text"></el-input>
+                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{zhuVtotal}}</span>&nbsp;&nbsp;{{zhuMarket}}</div>
+                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{zhuFrozenTotal}}</span>&nbsp;&nbsp;{{zhuMarket}}</div>
+                      <el-form-item label="buy price:">
+                        <el-input type="text"  ref="name" v-model="buyPrice" ></el-input>
                       </el-form-item>
-                      <el-form-item label="Quantidade">
-                        <el-input type="text"></el-input>
+                      <el-form-item label="Quantidade:">
+                        <el-input type="text" v-model="buyNumber"></el-input>
                       </el-form-item>
-                      <el-form-item label="*Max.de vendar IOTA"></el-form-item>
+                      <div style="height:80px;line-height:25px">*Max.de comprar：&nbsp;<span>{{name}}</span>{{zhuMarket}}</div>
                       <el-form-item>
-                        <el-button type="primary">Vendar</el-button>
+                        <el-button type="primary" size="small" class="buyOrSell">Comprar</el-button>
                       </el-form-item>
                     </el-form>
                   </div>
                 </el-col>
                 <el-col :span="12" style="border-left: 1px solid #ccc">
                   <div class="grid-content bg-purple-light">
-                    <el-form ref="form" :model="form">
+                    <el-form ref="form" :model="form" :label-position="labelPosition" label-width="80px">
                       <p class="i18n" name="price">Preço</p>
-                      <el-form-item label="price">
+                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{ziVtotal}}</span>&nbsp;&nbsp;{{ziMarket}}</div>
+                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{ziFrozenTotal}}</span>&nbsp;&nbsp;{{ziMarket}}</div>
+                      <el-form-item label="sell price:">
                         <el-input type="text"></el-input>
                       </el-form-item>
-                      <el-form-item label="Quantidade">
+                      <el-form-item label="Quantidade:">
                         <el-input type="text"></el-input>
                       </el-form-item>
-                      <el-form-item label="*Max.de vendar IOTA"></el-form-item>
+                      <div style="height:80px;line-height:25px">*Max.de vendar：&nbsp;<span>0.000</span>{{zhuMarket}}</div>
                       <el-form-item>
-                        <el-button type="primary">Vendar</el-button>
+                        <el-button type="primary" size="small" class="buyOrSell">Venda de</el-button>
                       </el-form-item>
                     </el-form>
                   </div>
@@ -241,26 +115,27 @@
             </el-collapse-item>
             <el-collapse-item name="3">
               <template slot="title" >
-               TRADES(交易)
+               {{$t('title["TRADES"]')}}
               </template>
-              <el-table :data="tableData1" style="width: 100%">
-                <el-table-column label="Tempo">
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.time }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column label="Preço">
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.price }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column label="Quantidade">
-                  <template slot-scope="scope">
-                    <i class="glyphicon glyphicon-triangle-top" style="line-height: 0px"></i>
-                    <span>{{ scope.row.number}}</span>
-                  </template>
-                </el-table-column>
-              </el-table>
+              <div class="service-Content">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Tempo</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                      </tr>
+                    </thead>
+                    <tr v-for="(item2,index) in tableData1" v-bind:key="index" >
+                        <td>{{item2.createTime}}</td>
+                        <td>{{item2.prize}}</td>
+                        <td>{{item2.amount}}</td>
+                    </tr>
+                    <tr v-show="!tableData1.lenth">
+                      <td colspan="3">{{$t('tag["noData"]')}}</td>
+                    </tr>
+                </table>
+              </div>
             </el-collapse-item>
         </el-collapse> 
       </div> 
@@ -270,61 +145,261 @@
 
 <script>
 import '../style/deal.css'
-import jquery from'../js/jquery-1.4.2.min.js'
+import jquery from '../js/jquery-1.4.2.min.js'
 import deal from '../js/deal.js'
 import '../style/element.css'
 export default {
   // '/trade': 'Trade'
-  name:'Trade',
-  data(){
-    return{
-      activeName:"1",
-      form:{
-        address:''
+  name: 'Trade',
+  data() {
+    return {
+      buyPrice: '',
+      buyNumber: '',
+      trade: '',
+      market: '',
+      url1: '',
+      url2: '',
+      sumamount: '',
+      newPrize: '',
+      increasePrize: '',
+      select: 'index',
+      ziMarket: '',
+      zhuMarket: '',
+      zhuVtotal: '',
+      ziVtotal: '',
+      ziFrozenTotal: '',
+      zhuFrozenTotal: '',
+      header_list: [],
+      basisName: '',
+      symbol: '',
+      tab_list: [],
+      tab: {
+        tradeMarket: ''
       },
-      tableData:[
-        {
-          url:'http://pic32.photophoto.cn/20140714/0022005850120116_b.jpg',
-          market:'BTC_LTC',
-          coin:'0,7878909 BTC',
-          pre:'0.5%',
-        },
-        {
-          url:'http://pic32.photophoto.cn/20140714/0022005850120116_b.jpg',
-          market:'BTC_LTC',
-          coin:'0,7878909 BTC',
-          pre:'0.5%',
-        },
-        {
-          url:'http://pic32.photophoto.cn/20140714/0022005850120116_b.jpg',
-          market:'BTC_LTC',
-          coin:'0,7878909 BTC',
-          pre:'0.5%',
-        }
-      ],
-      tableData1:[
-        {
-          time:'12:23:00',
-          price:'11,235',
-          number:'0,08988'
-        },
-        {
-          time:'12:23:00',
-          price:'11,235',
-          number:'0,08988'
-        },
-        {
-          time:'12:23:00',
-          price:'11,235',
-          number:'0,08988'
-        },
-        {
-          time:'12:23:00',
-          price:'11,235',
-          number:'0,08988'
-        }
-      ]
+      allData: [],
+      loading: false,
+      labelPosition: 'top',
+      activeName: "1",
+      form: {
+        address: ''
+      },
+      tableData1: [],
+      form1: {
+        price: '',
+        number: ''
+      },
     }
-  }
+  },
+  computed: {
+    name: function() {
+      var aa = this.zhuVtotal / this.buyPrice;
+      var bb = this.buyPrice * this.buyNumber;
+      var cc = this.zhuVtotal / this.buyPrice * this.buyPrice;
+      if (bb < this.zhuVtotal) {
+        return bb
+      } else {
+        return cc
+      }
+    }
+  },
+  created() {
+        
+        
+    this.init();
+    this.$sock.connect({}, frame => {
+      this.$sock.subscribe(`/topic/findAllPrizeByBasisName`, data => { //根据主市场查询子市场
+        this.tab_list = JSON.parse(data.body).data;
+        var aa = this.tab_list[0].tradeMarket;
+        var bb = this.tab_list[0].zhuMarkUrl;
+        var cc = this.tab_list[0].ziMarkUrl;
+        var dd = this.tab_list[0].sumamount;
+        var ee = this.tab_list[0].newPrize;
+        var ff = this.tab_list[0].increasePrize;
+        var arr = aa.split("_");
+        this.trade = arr[0];
+        this.market = arr[1];
+        this.url1 = bb;
+        this.url2 = cc;
+        this.sumamount = dd;
+        this.newPrize = ee;
+        this.increasePrize = ff;
+        sessionStorage.setItem('list',JSON.stringify(this.tab_list));
+        var list=sessionStorage.getItem("list");
+        this.tab_list=JSON.parse(list)
+        if (this.tab_list.length) {
+          this.getMarket(this.tab_list[0].tradeMarket, this.tab_list[0].zhuMarkUrl, this.tab_list[0].ziMarkUrl, this.tab_list[0].sumamount, this.tab_list[0].newPrize, this.tab_list[0].increasePrize)
+        }
+      });
+      this.$sock.subscribe(`/topic/findUserIdAndVirtualIdByTotal`, data => { //根据币种id和当前登录用户id查询钱包实体
+        if (JSON.parse(data.body).data === 403) {
+          // console.log(JSON.parse(data.body).data);
+          $(".buyOrSell").text("请登录");
+          $(".remainder").text("--")
+        }
+        // console.log(JSON.parse(data.body));
+        var vv = JSON.parse(data.body).data;
+        var arr = Object.keys(vv);
+        var newArr = [];
+        for (var i = 0; i < arr.length; i++) {
+          newArr[i] = {};
+          newArr[i].vName = arr[i];
+          newArr[i].attr = vv[arr[i]];
+        }
+        console.log(newArr)
+        sessionStorage.setItem('con',JSON.stringify(newArr));
+        this.zhuMarket = newArr[1].vName;
+        this.ziMarket = newArr[0].vName;
+        this.zhuVtotal = newArr[1].attr.vTotal;
+        this.ziVtotal = newArr[0].attr.vTotal;
+        this.zhuFrozenTotal = newArr[1].attr.frozenTotal;
+        this.ziFrozenTotal = newArr[0].attr.frozenTotal;
+      });
+      this.$sock.subscribe(`/topic/newDealPrize`, data => { //最新交易
+        this.tableData1 = JSON.parse(data.body).data;
+      });
+      this.$sock.subscribe(`/topic/historyEntrust`, data => { //历史交易
+        this.$store.state.arr = JSON.parse(data.body).data;
+      });
+      this.$sock.subscribe(`/topic/underway`, data => { //委托交易
+        this.$store.state.arr1 = JSON.parse(data.body).data;
+      });
+      this.$sock.subscribe(`/topic/buyShwo`, data => { //买单显示
+        this.$store.state.arr2 = JSON.parse(data.body).data;
+      });
+      this.$sock.subscribe(`/topic/sellShwo`, data => { //买单显示
+        this.$store.state.arr3 = JSON.parse(data.body).data;
+      });
+    });
+  },
+  methods: {
+    init(index) {
+      this.$get("marketManage/findAllBasisNameGroupBy").then(res => { //查询主市场
+        this.header_list = res.data;
+        var userJsonStr = sessionStorage.getItem('list');
+        this.tab_list=JSON.parse(userJsonStr);
+        console.log(this.tab_list)
+        var list = JSON.parse(userJsonStr);
+        console.log(list)
+        var arr = list[0].tradeMarket.split("_");
+        this.trade = arr[0];
+        this.market = arr[1];
+        this.url1 = list[0].zhuMarkUrl;
+        this.url2 = list[0].ziMarkUrl;
+        this.sumamount = list[0].sumamount;
+        this.newPrize = list[0].newPrize;
+        this.increasePrize = list[0].increasePrize;
+        if (res.data.length) {
+          this.get_web_data(res.data[0].basis_name)
+        }
+      }).catch(res => {
+        
+      })
+
+    },
+    get_web_data(list) {
+      
+      this.$sock.send('/app/findAllPrizeByBasisName', JSON.stringify({ //根据主市场查询子市场
+        tradeMarket: list,
+      }));
+    },
+    getMarket(aa, bb, cc, dd, ee, ff) {
+      this.$store.state.obj.tradeMarket = aa;
+      this.$store.state.obj.zhuMarkUrl = bb;
+      this.$store.state.obj.ziMarkUrl = cc;
+      this.$store.state.obj.sumamount = dd;
+      this.$store.state.obj.newPrize = ee;
+      this.$store.state.obj.increasePrize = ff;
+      var arr = aa.split("_");
+      this.trade = arr[0];
+      this.market = arr[1];
+      this.url1 = bb;
+      this.url2 = cc;
+      this.sumamount = dd;
+      this.newPrize = ee;
+      this.increasePrize = ff;
+      this.$sock.send('/app/newDealPrize', JSON.stringify({ //最新成交
+        tradeMarket: aa,
+      }));
+      this.$store.state.obj.tradeMarket = aa;
+      this.$sock.send('/app/findUserIdAndVirtualIdByTotal', JSON.stringify({ //查询钱包实体
+        tradeMarket: aa,
+        id: sessionStorage.getItem("token")
+      }));
+      this.$sock.send('/app/historyEntrust', JSON.stringify({ //历史委托
+        tradeMarket: aa,
+        id: sessionStorage.getItem("token")
+      }));
+      this.$sock.send('/app/underway', JSON.stringify({ //委托交易
+        tradeMarket: aa,
+        id: sessionStorage.getItem("token")
+      }));
+      this.$sock.send('/app/buyShwo', JSON.stringify({ //买单显示
+        tradeMarket: aa,
+      }));
+      this.$sock.send('/app/sellShwo', JSON.stringify({ //卖单显示
+        tradeMarket: aa,
+      }));
+
+    },
+    show_item(item) {
+      this.$store.commit('TOOGLE_EXPEDIC_ALIST');
+    },
+  },
 }
 </script>
+<style scoped>
+  .el-input{
+    width: 100%!important;
+  }
+  .el-form p{
+    padding: 10px;
+    font-weight: bold;
+  }
+  .el-form div{
+    color: #606266;
+    line-height: 30px
+  }
+  .el-form-item{
+    margin-bottom: 0px;
+  }
+  .max label{
+    line-height: 25px!important;
+    font-size: 12px!important;
+  }
+  .el-form .el-form--label-top .el-form-item__label{
+    padding: 0;
+  }
+  table tr td{
+    text-align: center;
+  }
+  .el-icon-caret-top{
+    color:#00B359;
+  }
+  .el-icon-caret-bottom{
+    color:#E02B2B;
+  }
+  i{
+    margin-right:5px;
+  }
+  .undulating{
+    color:#00B359;
+  }
+  .no-undulating{
+    color:#E02B2B;
+  }
+  .el-icon-caret-top{
+    color:#E02B2B;
+  }
+  .el-icon-caret-bottom{
+    color:#00B359;
+  }
+  .el-collapse-item{
+    margin-top:10px;
+  }
+  #tickers tr:first-child td{
+    border-top:0;
+  }
+  .el-collapse{
+    border:0;
+  }
+</style>

@@ -1,5 +1,5 @@
 <template id="account">
-	<div class="content" style="padding-bottom:60px">
+	<div class="content" style="padding-bottom:60px" v-loading="loading">
        	<ul>
            	<li class="show clearfix">
               	<div class="clearfix" style="height:auto">
@@ -8,7 +8,7 @@
 				        <div class="tit">
 			                <h3>{{$t('title["tui"]')}}</h3>
 			            </div>
-			            <el-collapse accordion v-model="activeName">
+			            <el-collapse  v-model="activeName">
 			              <h4>{{$t('title["quit-bank"]')}}</h4>
 			              <el-collapse-item name="1">
 			                <template slot="title" >
@@ -16,7 +16,7 @@
 			                </template>
 			                <el-form ref="form"  >
 			                  <el-form-item :label="$t('input.bank')">
-			                    <el-select  placeholder="请选择银行" v-model="form.bank">
+			                    <el-select  :placeholder="$t('placeholder.selectBank')" v-model="form.bank" >
 			                      <el-option label="1" value="shanghai"></el-option>
 			                      <el-option label="2" value="beijing"></el-option>
 			                    </el-select>
@@ -54,9 +54,9 @@
 			                </el-form>
 			              </el-collapse-item>
 			              <h4>CRIPTOMOEDAS</h4>
-			              <el-collapse-item >
+			              <el-collapse-item v-for="(item,index) in list" :key="index">
 			                <template slot="title" >
-			                  123
+			                  {{item.shortName}}
 			                </template>
 			                <el-form ref="form"  >
 			                  <el-form-item :label="$t('input.wallet')">
@@ -70,7 +70,6 @@
 			                  </el-form-item>
 			                </el-form>
 			              </el-collapse-item>
-
 			            </el-collapse>
                 	</div>
 	            </div>
@@ -82,41 +81,34 @@
 <script>
 import header from '../components/Trade.vue'
 export default {
-	name:'account',
+	name: 'account',
 	components: {
-    'v-header': header
- 	},
- 	data(){
- 		return{
- 			activeName:'1',
- 			form:{
- 				bank:''
- 			},
- 			list:[
- 				{
-  					coin:'ETHEREUM'
-	  			},
-	  			{
-	  				coin:'ETHEREUM CLASSIC'
-	  			},
-	  			{
-	  				coin:'DASH'
-	  			},
-	  			{
-	  				coin:'IOTA'
-	  			},
-	  			{
-	  				coin:'LITECOIN'
-	  			},
-	  			{
-	  				coin:'MONERO'
-	  			},
- 			]
- 		}
- 	},
- 	methods:{
-
- 	}
+		'v-header': header
+	},
+	data() {
+		return {
+			loading: false,
+			activeName: '1',
+			form: {
+				bank: ''
+			},
+			list: []
+		}
+	},
+	created() {
+		this.init()
+	},
+	methods: {
+		init() {
+			this.loading = true;
+			this.$get("virtualCurrency/findAll").then(res => {
+				this.loading = false
+				this.list = res.data;
+			}).catch(res => {
+				this.loading = false
+			});
+		}
+	}
 }
 </script>
 <style scoped>
@@ -179,5 +171,14 @@ export default {
     }
     .news{
         height: auto!important;
+    }
+    .el-form{
+      padding: 20px 200px;
+    }
+    .el-collapse-item{
+    	margin-bottom:10px;
+    }
+    .el-popper{
+    	z-index: 0;
     }
 </style>

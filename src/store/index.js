@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as api from '@/js/fetch'
+Vue.prototype.$get = api.get;
 // import app from './modules/app'
 // import user from './modules/user'
 // import product from './modules/product'
@@ -20,20 +22,33 @@ const store = new Vuex.Store({
 		token: null,
 		user:{
 
+		},
+		obj:{
+			tradeMarket:'',
+			virtualId:''
+		},
+		arr:[],
+		arr1:[],
+		arr2:[],
+		arr3:[],
+		userDate:{
+			hasRealValidate:''
 		}
+
 	},
 	getters :{
 		token: state => state.token,
 	},
 	mutations: {
-		SET_TOKEN(state,data){
-			state.token = data;
-			sessionStorage.setItem('token',data)
+		SET_TOKEN(state,token,user_data){
+			state.token = token;
+			state.user = user_data;
+			sessionStorage.setItem('token',token);
+			sessionStorage.setItem('user',JSON.stringify(user_data));
 		}
     },
   	actions: {
 
 	 }
 })
-
 export default store

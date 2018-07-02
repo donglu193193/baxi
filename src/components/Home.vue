@@ -43,165 +43,15 @@
                                 <div class="col-md-4 col-sm-6" v-for="(item,index) in list">
                                     <div class="serviceBox">
                                         <div class="service-icon">
-                                            <img :src="item.img" alt="" style="width:30px;height:30px">
-                                            <span>{{item.currency}}</span>
+                                            <img :src="item.mark_url" alt="" style="width:30px;height:30px;vertical-align: middle">
+                                            <span>{{item.short_name}}</span>
                                         </div>
                                         <div class="service-Content">
                                             <table class="table">
-                                                <tr v-for="(item,index) in list1">
-                                                    <td>{{item.price}}</td>
-                                                    <td>{{item.coin}}</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>{{item.pro}}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="serviceBox">
-                                        <div class="service-icon">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-ETHjiaoyi"></use>
-                                            </svg>
-                                            <span>ETH</span>
-                                        </div>
-                                        <div class="service-Content">
-                                            <table class="table">
-                                                <tr>
-                                                    <td>0.002780</td>
-                                                    <td>BTC</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>2%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>R$100,71</td>
-                                                    <td>BRZ</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>5%</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="serviceBox">
-                                        <div class="service-icon">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-ETHjiaoyi"></use>
-                                            </svg>
-                                            <span>ETH</span>
-                                        </div>
-                                        <div class="service-Content">
-                                            <table class="table">
-                                                <tr>
-                                                    <td>0.002780</td>
-                                                    <td>BTC</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>2%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>R$100,71</td>
-                                                    <td>BRZ</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>5%</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="serviceBox">
-                                        <div class="service-icon">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-ltclogo"></use>
-                                            </svg>
-                                            <span>LTC</span>
-                                        </div>
-                                        <div class="service-Content">
-                                            <!-- <h3 class="title">LTC</h3> -->
-                                            <table class="table">
-                                                <tr>
-                                                    <td>0.002780</td>
-                                                    <td>BTC</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>2%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>R$100,71</td>
-                                                    <td>BRZ</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>5%</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="serviceBox">
-                                        <div class="service-icon">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-dash"></use>
-                                            </svg>
-                                            <span>DASH</span>
-                                        </div>
-                                        <div class="service-Content">
-                                            <!-- <h3 class="title">Dash</h3> -->
-                                            <table class="table">
-                                                <tr>
-                                                    <td>0.002780</td>
-                                                    <td>BTC</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>2%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>R$100,71</td>
-                                                    <td>BRZ</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>5%</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="serviceBox">
-                                        <div class="service-icon">
-                                            <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-jinrong11"></use>
-                                            </svg>
-                                            <span>TOTA</span>
-                                        </div>
-                                        <div class="service-Content">
-                                            <!-- <h3 class="title">Iota</h3> -->
-                                            <table class="table">
-                                            	<tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>$11.435,60</td>
-                                                    <td>USD</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-down"></i>0.3%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>R$100,71</td>
-                                                    <td>BRZ</td>
-                                                    <td><i class="glyphicon glyphicon-arrow-up"></i>5%</td>
+                                                <tr v-for="(i,v) in item.children" v-bind:key="Math.random()">
+                                                    <td>{{i.sum}}</td>
+                                                    <td>{{i.tradeMarket}}</td>
+                                                    <td :class="i.riseOrFall < 0 ? 'green':'red'">{{i.riseOrFall}}<i :class="i.riseOrFall < 0 ? 'iconfont icon-down2':'iconfont icon-up2'"></i></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -242,36 +92,59 @@
 <script>
 export default {
   // '/Home': 'home'
-  name:'home',
-  data(){
-  	return{
-  		list:[
-  			{
-	  			img:'http://pic32.photophoto.cn/20140714/0022005850120116_b.jpg',
-	  			currency:'BTC'
-	  			
-	  		}
-
-  		],
-  		list1:[
-			{
-				price:'0.002780',
-	  			coin:'LTC',
-	  			pro:'0.2%'
-			},
-			{
-				price:'0.002780',
-	  			coin:'LTC',
-	  			pro:'0.2%'
-			},
-			{
-				price:'0.002780',
-	  			coin:'LTC',
-	  			pro:'0.2%'
-			}
-	  	]
-  	}
+  name: 'home',
+  data() {
+    return {
+      list: [],
+      shortName: ''
+    }
+  },
+  created() {
+    this.init();
+    // var userJsonStr = sessionStorage.getItem('arr');
+    // this.list = JSON.parse(userJsonStr);
+  },
+  methods: {
+    init() {
+      this.loading = true;
+      var reg1 = /http.*\,\ss/;
+      var reg2 = /short\_name.*\,\si/;
+      this.$sock.connect({}, frame => {
+        this.$sock.send('/app/getIndex', JSON.stringify({}));
+        this.$sock.subscribe(`/topic/getIndex`, data => {
+          var arr = [];
+          var res = JSON.parse(data.body).data;
+          console.log(res)
+          for (var i = 0; i < res.length; i++) {
+            arr[i] = {};
+            for (var k in res[i]) {
+              arr[i].children = res[i][k];
+              arr[i].mark_url = reg1.exec(k)[0].replace(', s', '');
+              arr[i].short_name = reg2.exec(k)[0].replace(', i', '').replace('short_name=', '');
+            }
+          }
+          this.$set(this.list, [])
+          // sessionStorage.setItem('arr',JSON.stringify(arr));
+          this.list=arr
+        })
+      })
+    },
   }
-
 }
 </script>
+<style scoped>
+  .green{
+    color:#00B359;
+  }
+  .red{
+    color:#E02B2B;
+  }
+  .icon-up2{
+    color:#E02B2B;
+    float:right;
+  }
+  .icon-down2{
+    color:#00B359;
+    float:right;
+  }
+</style>

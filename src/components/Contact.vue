@@ -1,455 +1,324 @@
 <template id="contact">
-	<div class="content" style="padding-bottom:60px">
+	<div class="content" style="padding-bottom:60px" v-loading="fullscreenLoading">
        	<ul>
            	<li class="show clearfix">
               	<div class="clearfix" style="height:auto">
                    
-                	<v-header></v-header>
+                	<v-header ref="child1"></v-header>
                     <div style="width: 70%;height:auto;float:right;padding:20px" id="right">
-                        <!-- <div>
-                          <p class="toggle" @click="toggle()" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"  ><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px"></i><span class="i18n" name="toggle1">CHART</span></p>
-                    			<div class="tradingview-widget-container" style="width:100%" v-show="isShow">
-                    			  <div id="technical-analysis"></div>
-                    			  
-                    			</div>
-                      </div>
-                      <div class="delegate">
-                          <p class="delegate11 " @click="toggle1()" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px;text-align: left" ></i><span class="i18n" name="toggle2">TRANSAÇÕES PENDENTES（委托交易）</span></p>
-                          <div class="delegate22" style="display: none;padding:20px 20px" v-show="isShow1">
-                              <table class="table " style="font-size: 10px!important;">
-                                  <thead>
-                                  <tr>
-                                      <th class="i18n" name="tradeID">ID da Transação</th>
-                                      <th class="i18n" name="data">Data</th>
-                                      <th class="i18n" name="type">Tipo de Operação</th>
-                                      <th class="i18n" name="volume">Volume</th>
-                                      <th class="i18n" name="price">Preço</th>
-                                      <th class="i18n" name="operate">Operação</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  	<tr v-for="(item,index) in list2">
-                                          <td>{{item.id}}</td>
-                                          <td>{{item.date}}</td>
-                                          <td class="i18n" name="buy">{{item.type ?'买入' :'卖出'}}</td>
-                                          <td>{{item.number}}</td>
-                                          <td>{{item.price}}</td>
-                                          <td>
-                                              <button type="button" class="btn btn-primary i18n" name="del">Cancelar（删除）</button>
-                                          </td>
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-                      <div class="bd-right">
-                          <p class="record" @click="toggle2()" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px"><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px"></i><span class="i18n" name="toggle3">HISTÓRICO DE TRANSAÇÕES（历史交易）</span></p>
-                          <div class="history" style="display: none;padding:0 20px" v-show="isShow2">
-                              <table class="table " style="font-size: 10px!important;">
-                                  <thead>
-                                  <tr>
-                                      <th class="i18n" name="tradeID">ID da Transação</th>
-                                      <th class="i18n" name="data">Data</th>
-                                      <th class="i18n" name="type">Tipo de Operação</th>
-                                      <th class="i18n" name="volume">Volume</th>
-                                      <th class="i18n" name="price">Preço</th>
-                                      <th class="i18n" name="operate">Operação</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                      <tr v-for="(item,index) in list1">
-                                          <td>{{item.id}}</td>
-                                          <td>{{item.date}}</td>
-                                          <td class="i18n" name="buy">{{item.type ?'买入' :'卖出'}}</td>
-                                          <td>{{item.number}}</td>
-                                          <td>{{item.price}}</td>
-                                          <td>
-                                              <button type="button" class="btn btn-primary i18n" name="del">Cancelar（删除）</button>
-                                          </td>
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-
-                      <div class="news">
-                          <p class="news-tab11" @click="toggle3()" style="background: #00AEB7;border-bottom:1px solid white;cursor: pointer;line-height: 30px;margin-bottom: 0px;padding:10px 20px;color:white;font-size: 14px" ><i class="glyphicon glyphicon-chevron-down" style="margin-right: 10px;text-align: left" ></i><span class="i18n" name="toggle4">ORDER BOOK </span></p>
-                          <div class="news-tab" style="display: none;padding:20px;background: #F4F4F4" v-show="isShow3">
-                              <div class="tab" style="background-color:#F4F4F4">
-                                  <table class="table">
-                                      <thead>
-                                          <tr>
-                                              <th class="i18n" name="number">Quantidade</th>
-                                              <th class="i18n" name="price">Preço</th>
-                                              <th class="i18n" name="total">Total</th>
-                                              <th class="i18n" name="total">Total</th>
-                                              <th class="i18n" name="price">Preço</th>
-                                              <th class="i18n" name="number">Quantidade</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          <tr v-for="(item,index) in list">
-                                              <td>{{item.aa}}</td>
-                                              <td>{{item.bb}}</td>
-                                              <td>{{item.cc}}</td>
-                                              <td>{{item.dd}}</td>
-                                              <td>{{item.ee}}</td>
-                                              <td>{{item.ff}}</td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
-                                  <ul style="position: absolute;top:0;z-index: -100">
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 13%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 15%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 18%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 23%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 26%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 34%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 17%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 19%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 24%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                      <li>
-                                          <div class="progress">
-                                                <span style="width: 30%;display: inline-block;"></span>
-                                              </div>
-                                      </li>
-                                  </ul>
-                                  <div class="legend"><span></span>&nbsp;<b class="i18n" name="legend1">Potencial de Compras</b>&nbsp;&nbsp;&nbsp;&nbsp;<span class="vendas"></span>&nbsp;<b class="i18n" name="legend2">Potencial de Vendas</b></div>
+                    <el-collapse  v-model="activeName" class="clearfix">
+                      <el-collapse-item name="1">
+                        <template slot="title" >
+                          {{$t('title["toggle1"]')}}
+                        </template>
+                        
+                        <el-tabs type="border-card">
+                          <el-tab-pane :label="$t('label.kLine')">
+                              <div class="tradingview-widget-container">
+                                <div id="technical-analysis"></div>
                               </div>
+                          </el-tab-pane>
+                          <el-tab-pane :label="$t('label.depth')">
+                              <depth-chart></depth-chart>  
+                          </el-tab-pane>
+                        </el-tabs>
+                      </el-collapse-item>
+                      <el-collapse-item name="2">
+                        <template slot="title" >
+                          {{$t('title["toggle2"]')}}
+                        </template>
+                        <table class="table" v-show="this.$store.state.token" ><!-- 委托交易 -->
+                            <thead>
+                              <tr>
+                                <th>{{$t('table["tradeID"]')}}</th>
+                                <th>{{$t('table["市场"]')}}</th>
+                                <th>{{$t('table["data"]')}}</th>
+                                <th>{{$t('table["type"]')}}</th>
+                                <th>{{$t('table["number"]')}}</th>
+                                <th>{{$t('table["price"]')}}</th>
+                                <th>{{$t('table["operate"]')}}</th>
+                              </tr>
+                            </thead>
+                            <tr v-for="(item,index) in $store.state.arr1 " v-bind:key="index" >
+                                <td>{{item.id}}</td>
+                                <td>{{item.tradeMarket}}</td>
+                                <td>{{item.createTime}}</td>
+                                <td>{{item.entrustType ? $t('table["sell"]') : $t('table["buy"]')}}</td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.prize}}</td>
+                                <td>
+                                  <el-button  size="mini" type="danger" icon="el-icon-delete" @click='del(item.id)'>{{$t('button["撤销"]')}}</el-button>
+                                </td>
+                            </tr>
+                            <tr v-show="!$store.state.arr1.length">
+                                <td colspan='7'>{{$t('tag["noData"]')}}</td>
+                            </tr>
+                            
+
+                        </table>
+                        <el-row  v-show="!this.$store.state.token"  class="unlisted">
+                          <el-button type="danger" plain><router-link to="/login" >{{$t('button["pleaseLogin"]')}}</router-link></el-button>
+                        </el-row>
+                      </el-collapse-item>
+                      <el-collapse-item name="3">
+                        <template slot="title" >
+                          {{$t('title["toggle3"]')}}
+                        </template>
+                        <div class="service-Content">
+                          <table class="table" v-show="this.$store.state.token"><!-- 历史交易 -->
+                              <thead>
+                                <tr>
+                                  <th>{{$t('table["tradeID"]')}}</th>
+                                  <th>{{$t('table["市场"]')}}</th>
+                                  <th>{{$t('table["data"]')}}</th>
+                                  <th>{{$t('table["type"]')}}</th>
+                                  <th>{{$t('table["number"]')}}</th>
+                                  <th>{{$t('table["price"]')}}</th>
+                                </tr>
+                              </thead>
+                              <tr v-for="(item,index) in $store.state.arr " v-bind:key="index" >
+                                  <td>{{item.id}}</td>
+                                  <td>{{item.tradeMarket}}</td>
+                                  <td>{{item.createTime}}</td>
+                                  <td>{{item.entrustType ? $t('table["sell"]') : $t('table["buy"]')}}</td>
+                                  <td>{{item.amount}}</td>
+                                  <td>{{item.prize}}</td>
+                              </tr>
+                              <tr v-show="!$store.state.arr.length">
+                                  <td colspan='6'>{{$t('tag["noData"]')}}</td>
+                              </tr>
                               
-                          </div>
-                      </div>
- -->
+                          </table>
+                          <el-row  v-show="!this.$store.state.token"  class="unlisted">
+                            <el-button type="danger" plain><router-link to="/login" >{{$t('button["pleaseLogin"]')}}</router-link></el-button>
+                          </el-row>
+                        </div>
+                      </el-collapse-item>
+                      <el-collapse-item name="4" @click="per($store.state.arr2,index)">
+                        <template slot="title" >
+                          {{$t('table["orderBook"]')}}
+                        </template>
+                        <div  class="clearfix" >
+                          <div style="width:50%;float: left;">
+                            <ul class="buyTab" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);transition-duration: 0ms;transform: translate(0px, 0px) translateZ(0px);"><!-- 买卖单显示 -->
+                              <li style="background: #9A9A9A">
+                                <p>{{$t('table["price"]')}}</p>
+                                <p>{{$t('table["number"]')}}</p>
+                              </li>
+                              <li v-for="(item,index) in $store.state.arr2 ">
+                                <p>{{item.price}}</p>
+                                <p>{{item.amount}}</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         :style="'width:' + item.amount + '%'">
+                                        <span class="sr-only">{{item.amount}}</span>
+                                    </div>
+                                </div>
+                              </li>
+                              <li v-show="!$store.state.arr2.length"><p>{{$t('tag["noData"]')}}</p></li>
+                            </ul>
+                        </div>
+                        <div style="width:50%;float: left;">
+                            <ul class="buyTab" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);transition-duration: 0ms;transform: translate(0px, 0px) translateZ(0px);"><!-- 买卖单显示 -->
+                              <li style="background: #9A9A9A">
+                                <p>{{$t('table["number"]')}}</p>
+                                <p>{{$t('table["price"]')}}</p>
+                              </li>
+                              <li v-for="(item1,index) in $store.state.arr3 "> 
+                                <p>{{item1.amount}}</p>
+                                <p>{{item1.price}}</p>
+                                <div class="progress">
+                                    <div class="progress-bar1 progress-bar-warning" role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         :style="'width:' + item1.amount + '%'">
+                                        <span class="sr-only">{{item1.amount}}</span>
+                                    </div>
+                                </div>
+                              </li>
+                              <li v-show="!$store.state.arr3.length"><p>{{$t('tag["noData"]')}}</p></li>
+                            </ul>
+                        </div>
+                        </div>
+                        
+                      </el-collapse-item>
 
-                  <el-collapse accordion v-model="activeName">
-                    <el-collapse-item name="1">
-                      <template slot="title" >
-                        {{$t('title["toggle1"]')}}
-                      </template>
-                      <div class="tradingview-widget-container" style="width:100%" >
-                            <div id="technical-analysis"></div>
-                      </div>
-                    </el-collapse-item>
-                    <el-collapse-item name="2">
-                      <template slot="title" >
-                        {{$t('title["toggle2"]')}}
-                      </template>
-                      <el-table :data="tableData" style="width: 100%">
-                        <el-table-column :label="$t('table.tradeID')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.id }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.data')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.type')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.type }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.volume')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.number }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.price')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.price }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column :label="$t('table.operate')" width="180">
-                          <template slot-scope="scope">
-                            <el-button  size="mini" type="danger" icon="el-icon-delete">{{$t('button["del"]')}}</el-button>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-collapse-item>
-                    <el-collapse-item name="3">
-                      <template slot="title" >
-                        {{$t('title["toggle3"]')}}
-                      </template>
-                      <el-table :data="tableData" style="width: 100%">
-                        <el-table-column   :label="$t('table.tradeID')">
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.id }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column   :label="$t('table.data')">
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.date }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column   :label="$t('table.type')">
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.type }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column   :label="$t('table.volume') ">
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.number }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column   :label="$t('table.price')" >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.price }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  width="180" :label="$t('table.operate')">
-                          <template slot-scope="scope">
-                            <el-button  size="mini" type="danger" icon="el-icon-delete">{{$t('button["del"]')}}</el-button>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-collapse-item>
-                    <el-collapse-item name="4">
-                      <template slot="title" >
-                        {{$t('title["toggle4"]')}}
-                      </template>
-                      <el-table :data="tableData1" style="width: 100%">
-                        <el-table-column :label="$t('table.number')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.aa }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.price')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.bb }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.total')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.cc }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.total')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.dd }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.price')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.ee}}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column  :label="$t('table.number')"  >
-                          <template slot-scope="scope">
-                            <span>{{ scope.row.ff }}</span>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-collapse-item>
-
-                  </el-collapse>
+                    </el-collapse>
                    	</div>
                 </div>
            	</li>
        	</ul>
    </div>
 </template>
-<script type="text/javascript">
-			  new TradingView.widget(
-			  {
-			  "container_id": "technical-analysis",
-			  "width": 998,
-			  "height": 610,
-			  "symbol": "AAPL",
-			  "interval": "D",
-			  "timezone": "exchange",
-			  "theme": "Light",
-			  "style": "1",
-			  "toolbar_bg": "#f1f3f6",
-			  "withdateranges": true,
-			  "hide_side_toolbar": false,
-			  "allow_symbol_change": true,
-			  "save_image": false,
-			  "studies": [
-			    "ROC@tv-basicstudies",
-			    "StochasticRSI@tv-basicstudies",
-			    "MASimple@tv-basicstudies"
-			  ],
-			  "show_popup_button": true,
-			  "popup_width": "1000",
-			  "popup_height": "650",
-			  "locale": "zh_CN"
-			}
-			  );
-			  </script>
 <script>
 import header from '../components/Trade.vue'
+import depthChart from '../components/depthChart.vue'
 import chart from '../js/tradingView.js'
 import '../style/element.css'
+import eCharts from '../js/echarts.min.js'
 export default {
-  // '/contact': 'contact',
-  name:'contact',
+  name: 'contact',
   components: {
-    'v-header': header
+    'v-header': header,
+    'depth-chart': depthChart,
   },
-  data(){
-  	return{
-      activeName:"1",
-  		isShow:true,
-  		isShow1:false,
-  		isShow2:false,
-  		isShow3:false,
-  		tableData1:[
-  			{
-  				aa:'0,0462736',
-  				bb:'11,123',
-  				cc:'0,0267617',
-  				dd:'0,0462736',
-  				ee:'0,0462736',
-  				ff:'0,0462736'
+  callback: {},
+  data() {
+    return {
+      activeName: "1",
+      fullscreenLoading: false,
+    }
+  },
+  created() {
+    this.init();
+  },
+  computed: {
 
-  			},
-  			{
-  				aa:'0,0462736',
-  				bb:'11,123',
-  				cc:'0,0267617',
-  				dd:'0,0462736',
-  				ee:'0,0462736',
-  				ff:'0,0462736'
-  			},
-  			{
-  				aa:'0,0462736',
-  				bb:'11,123',
-  				cc:'0,0267617',
-  				dd:'0,0462736',
-  				ee:'0,0462736',
-  				ff:'0,0462736'
-  			}
-  		],
-  		tableData:[
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:0,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			},
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:1,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			},
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:1,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			}
-  		],
-  		list2:[
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:0,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			},
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:1,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			},
-  			{
-  				id:'13912730',
-				date:'20/01/26',
-				type:1,
-				number:'0,47/10（IOTA）',
-				price:'0,00456 BTC'
-  			}
-  		]
-  	}
   },
-  mounted() {
-    this.drawLine();
+  mounted: function() {
+    new TradingView.widget({
+      "container_id": "technical-analysis", //id属性为指定要包含widget的DOM元素id
+      "width": 998, //widget的尺寸
+      "height": 610,
+      // "fullscreen":true,//布尔值显示图表是否占用窗口中所有可用的空间
+      // "debug":true,//将此属性设置为true时，可使图表将详细的API日志写入控制台
+      "symbol": "AAPL", //您的图表的初始商品
+      "interval": "D", //您的图表的间隔
+      "timezone": "exchange", //图表的初始时区。时间刻度上的数字取决于这个时区
+      "theme": "Light", //图表背景颜色
+      "style": "1", //图表样式
+      "toolbar_bg": "#f1f3f6", //工具栏背景颜色
+      "withdateranges": true,
+      "hide_side_toolbar": false,
+      "allow_symbol_change": true,
+      "save_image": false,
+      "studies": [
+        "ROC@tv-basicstudies",
+        "StochasticRSI@tv-basicstudies",
+        "MASimple@tv-basicstudies"
+      ],
+      "show_popup_button": true,
+      // "popup_width": "1000",
+      // "popup_height": "650",
+      "locale": "zh_CN", //图表库的本地化处理
+      "overrides": {
+        // "mainSeriesProperties.style": 0,
+        "symbolWatermarkProperties.color": "#944",
+        // "volumePaneSize": "tiny"
+      },
+    });
   },
-  methods:{
-          toggle:function(){
-            this.isShow = !this.isShow;
-          },
-          toggle1:function(){
-            this.isShow1 = !this.isShow1;
-          },
-          toggle2:function(){
-            this.isShow2 = !this.isShow2;
-          },
-          toggle3:function(){
-            this.isShow3 = !this.isShow3;
-          },
-          drawLine(){
-          	new TradingView.widget(
-			  {
-			  "container_id": "technical-analysis",
-			  "width": 998,
-			  "height": 610,
-			  "symbol": "AAPL",
-			  "interval": "D",
-			  "timezone": "exchange",
-			  "theme": "Light",
-			  "style": "1",
-			  "toolbar_bg": "#f1f3f6",
-			  "withdateranges": true,
-			  "hide_side_toolbar": false,
-			  "allow_symbol_change": true,
-			  "save_image": false,
-			  "studies": [
-			    "ROC@tv-basicstudies",
-			    "StochasticRSI@tv-basicstudies",
-			    "MASimple@tv-basicstudies"
-			  ],
-			  "show_popup_button": true,
-			  "popup_width": "1000",
-			  "popup_height": "650",
-			  "locale": "zh_CN"
-			}
-			  );
-          }
-        }
+  methods: {
+    init() {},
+    del(id) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.fullscreenLoading = true;
+        this.$post('index/cancelOrder?poolId=' + id).then(res => {
+          this.fullscreenLoading = false;
+          this.$message({
+            type: 'success',
+            message: res.msg
+          });
+          this.init()
+        }).catch(res => {
+          this.fullscreenLoading = false;
+
+        })
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+        this.fullscreenLoading = false;
+      });
+    },
+  }
 }
-
 </script>
+<style scoped>
+  table tr td{
+    text-align: center;
+    vertical-align: middle;
+  }
+  .clearfix:after {
+      content: "\0020";
+      display: block;
+      height: 0;
+      clear: both;
+  }
+  .clearfix {
+      zoom: 1;
+  }
+  /*.buyTab tr th{
+    background: white;
+  }
+  .buyTab tr td{
+    color:black;
+  }*/
+  .buyTab {
+    width:100%;
+    height:auto;
+  }
+  .buyTab li{
+    display: block;
+    display: flex;
+    padding:5px;
+    position: relative;
+    background: rgba(0,0,0,0)
+  }
+  .buyTab li p{
+    flex: 1;
+  }
+  .buyTab li .progress{
+    position: absolute;
+    width:100%;
+    background: rgba(0,0,0,0.1);
+    border-radius: 0;
+    padding:12px;
+
+  }
+  .buyTab li .progress-bar {
+    height:100%;
+    position: absolute;
+    top:0;
+    right:0;
+    background: rgba(236, 136, 136,0.6);
+  }
+  .buyTab li .progress-bar1 {
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    background: rgba(41, 204, 122,0.6);
+  }
+  .unlisted{
+    padding:50px 20px;
+    text-align: center;
+  }
+  .noData{
+    text-align: center;
+  }
+  table tr th{
+    background: #9A9A9A;
+  }
+  .el-collapse-item{
+    margin-bottom:10px;
+  }
+  .el-collapse{
+    border:none;
+  }
+  a{
+    color:#f56c6c;
+  }
+  a:hover{
+    color:white;
+  }
+  button:hover a{
+    color:white;
+  }
+</style>

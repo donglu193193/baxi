@@ -17,8 +17,12 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
 	// config.headers['content-type'] = 'application/x-www-form-urlencoded'
+	// console.log(store.getters.token)
 	if (store.getters.token) {
-		config.headers['Authentication'] = 'Bearer '+store.getters.token // 让每个请求携带自定义token 请根据实际情况自行修改
+		config.headers = {
+			Authorization : 'Bearer '+store.getters.token,
+			'content-type':'application/x-www-form-urlencoded'
+		}   // 让每个请求携带自定义token 请根据实际情况自行修改
 	}
 	return config
 }, error => {
@@ -59,11 +63,18 @@ service.interceptors.response.use(
 		}
 	},
 	error => {
-		Message({
-			message: error.message,
-			type: 'error',
-			duration: 5 * 1000
-		})
+		const res = response.data
+		if (!res.type) {
+			Message({
+				message: res.msg,
+				type: 'error',
+				duration: 5 * 1000
+			})}
+		// Message({
+		// 	message: error.message,
+		// 	type: 'error',
+		// 	duration: 5 * 1000
+		// })
 		return Promise.reject(error)
 	}
 )

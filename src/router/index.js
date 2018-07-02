@@ -11,15 +11,15 @@ import Register from '@/components/Register'
 import Safe from '@/components/Safe'
 import RetrievePw from '@/components/RetrievePw'
 import 'bootstrap/dist/css/bootstrap.css'
-import js from '../js/jquery-1.4.2.min.js'
 
 Vue.use(Router)
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      redirect:{
+        name: 'Home'
+      }
     },
     {
       path: '/currency',
