@@ -180,20 +180,26 @@
 				this.$get("userInfo/testNickNameOrEmailDesc", {
 					email: this.form.username,
 				}).then(res => {
-					// console.log(res)
 					this.$message({
 						type: 'success',
-						message: res.msg
+						message: '邮箱输入正确'
 					})
-
+					this.get_validate(res.data)
 				}).catch(res => {
 
 				})
 			},
-			get_validate() {
+			get_validate(aa) {
 				if (this.form.img_code != this.identifyCode) {
 					this.$message({
 						message: '图形验证码错误',
+						type: 'error'
+					})
+					return
+				}
+				if(aa !== true){
+					this.$message({
+						message: '该邮箱不存在',
 						type: 'error'
 					})
 					return
@@ -243,7 +249,7 @@
 						clearInterval(this.timer);
 						this.full_loading = false;
 						this.$message({
-							message: res.data,
+							message: '验证码已发送至您的邮箱,请注意查收',
 							type: 'success'
 						});
 						this.isSend = true;

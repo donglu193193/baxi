@@ -198,7 +198,7 @@
               <el-button @click="send(form2.phone)" type="primary" size="mini" style="width:40%;float:right" v-if='!check3()'>{{$t('button["sendCode"]')}}</el-button>
             </el-form-item>
             <el-form-item :label="$t('label.phoneCode')" v-if='!check3()'>
-              <el-input v-model="form2.phoneCode"   ></el-input>
+              <el-input v-model="form2.phoneCode"></el-input>
             </el-form-item>
             <div style="text-align: center" v-if='!check3()'>
               <el-button @click.stop.prevent="rePhone(form2)" type="success"><i class="el-icon-success"></i>{{$t('button["submit"]')}}</el-button>
@@ -253,6 +253,7 @@ export default {
         callback(new Error('两次输入密码不一致!'));
       } else {
         callback();
+        return
       }
     };
     return {
@@ -298,7 +299,7 @@ export default {
         }],
         re_password: [{
           validator: validatePass2,
-          trigger: 'blur'
+          trigger: 'change'
         }]
       },
     }
@@ -310,6 +311,7 @@ export default {
     init(item, aa) {
       this.loading = true;
       this.$get('userInfo/findById').then(res => {
+        console.log(res.data)
         this.loading = false;
         this.$store.state.user.aa = res.data.nickName;
         this.$store.state.user.bb = res.data.email;
@@ -391,8 +393,8 @@ export default {
       return isJPG && isLt2M;
     },
     check1() {
-        var hasRealValidate = this.$store.state.userData.hasRealValidate;
-        if (hasRealValidate == "1") {
+        var user = this.$store.state.userData;
+        if (user.hasRealValidate == 1) {//hasRealValidate (0：未审核；1：已审核)(初级)
           return true
         } else {
           return false
@@ -400,19 +402,23 @@ export default {
       },
     check2() {
       var user = this.$store.state.userData;
-      if(user.isValid == "1"){
+      if(user.isValid == 1){// isValid（1,通过认证:2,没有认证）(高级)
         return true
-      }else if(user.certificatePath1 == "" || user.certificatePath2 == "" || user.certificatePath3 == ""){
-        return false
-      }else if (user.certificatePath1 && user.certificatePath2 && user.certificatePath3 && user.isValid == "2" && user.descText !=="") {
-        return false
-      } else if(user.certificatePath1 && user.certificatePath2 && user.certificatePath3 && user.isValid == "2" && user.descText ==""){
-        return true
+      }else if(user.isValid == 2){
+        if(user.certificatePath1 == "" || user.certificatePath2 == "" || user.certificatePath3 == ""){
+          return false
+        }else if(user.certificatePath1 && user.certificatePath2 && user.certificatePath3){
+          if(user.descText !==""){
+            return false
+          }else{
+            return true
+          }
+        }
       }
     },
     check3() {
       var phone = this.$store.state.userData.phone;
-      if (phone == "") {
+      if (phone == null) {
         return false
       } else {
         return true
@@ -475,10 +481,18 @@ export default {
       })
     },
     rePassword() {
+      if(this.form3.newPassword == '' || this.form3.oldPassword == '' ||  this.form3.re_Password == ''){
+        this.$message({
+          type: 'error',
+          message: "字段不能为空"
+        });
+        return
+      }
       this.$put("userInfo/updatePassword", {
         oldPassword: this.form3.oldPassword,
         newPassword: this.form3.newPassword
       }).then(res => {
+        this.pw_dialog = false;
         if (res.type) {
           this.form3.oldPassword = '',
             this.form3.newPassword = ''

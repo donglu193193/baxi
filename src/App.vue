@@ -8,7 +8,7 @@
               <span><router-link to="/home">{{$t('table["exchange"]')}}</router-link>&nbsp;&nbsp;&nbsp;|</span>
               <b>{{$t('table["business"]')}}</b>
           </div>
-          <div class="header-right">
+          <div class="header-right" id="header-right">
               <el-menu
               :default-active="activeIndex2"
               class="el-menu-demo"
@@ -60,7 +60,7 @@ export default {
       loading:false,
       activeIndex2: "",
       item:{
-        nickName : ""
+        nickName:''
       },
       language: [{
           value: 'cn',
@@ -80,12 +80,12 @@ export default {
       })[0].label;
   },
   methods:{
-    init(item){
-      // this.loading=true,
-      this.$get("userInfo/findById").then(res=>{
-        this.item.nickName = res.data.nickName
-        // this.loading=false
-      })
+    init(item) {
+        // this.loading = true,
+        this.$get("userInfo/findById").then(res => {
+          this.item.nickName = res.data.nickName
+          // this.loading = false
+        })
     },
     choose(value, txt){
         this.$i18n.locale = value;
@@ -100,6 +100,12 @@ export default {
     logout(){
       this.$get("login/logout").then(res=>{
         this.$store.state.token = null;
+        this.$store.state.user = {};
+        sessionStorage.setItem('token', 'null');
+        this.$message({
+          message: '退出登录成功',
+          type: 'success'
+        });
       })
     }
 

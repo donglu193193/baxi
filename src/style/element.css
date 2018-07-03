@@ -36,5 +36,15 @@
     .el-collapse-item__content{
         background: #F4F4F4!important;
     }
+    #tabs .el-tabs__item{
+        padding:0px;
+    }
+    .header-right li a{
+        display: block;
+        padding:0px 20px;
+    }
+    #header-right ul li{
+        padding:0px;
+    }
 
 

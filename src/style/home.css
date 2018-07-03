@@ -279,6 +279,10 @@ body{
             z-index: 99;
             opacity: 0.5;
             transform: rotate(70deg);
+            -webkit-animation-name: bg;
+            animation-name: bg;
+            animation-iteration-count: infinite;
+            animation-duration: 8s;
         }
         .bg5{
             width: 100px;
@@ -288,6 +292,10 @@ body{
             z-index: 99;
             opacity: 0.3;
             transform: rotate(-50deg);
+            -webkit-animation-name: sc;
+            animation-name: sc;
+            animation-iteration-count: infinite;
+            animation-duration: 6s;
         }
         .bg6{
             width: 50px;
@@ -307,7 +315,20 @@ body{
             opacity: 0.5;
             transform: rotate(-70deg);
         }
-
+        @-webkit-keyframes bg{
+            0% { -webkit-transform: scale(0.5); -webkit-transform: rotateY(90deg); opacity: 1; }
+            30% { -webkit-transform: rotateX(180deg); opacity: 0.9; }
+            50% { opacity: 0; }
+            80% { -webkit-transform: rotateY(40deg) rotate(200deg) scale(2); opacity: 0;}
+            100% { opacity: 0;}
+        }
+        @-webkit-keyframes sc{
+            0% { -webkit-transform: scale(0.5); -webkit-transform: rotateY(180deg); opacity: 1; }
+            30% { -webkit-transform: rotateX(200deg); opacity: 0.9; }
+            50% { opacity: 0.9; }
+            80% { -webkit-transform: rotateY(-180deg) rotate(-200deg) scale(2); opacity: 0;}
+            100% { opacity: 0;}
+        }
 
         #tab-list>h3{
             margin: 50px;
@@ -332,10 +353,10 @@ body{
             color: white;
             position: relative;
             bottom: 0px;
-            -webkit-animation-name: bg1;
+            /*-webkit-animation-name: bg1;
             animation-name: bg1;
             animation-iteration-count: infinite;
-            animation-duration: 4s;
+            animation-duration: 4s;*/
             display: block;
         }
         #footer h3{

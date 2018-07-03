@@ -66,10 +66,15 @@
 					username: this.form.username,
 					password: this.form.password,
 				}).then(res => {
+					// this.$store.state.user.username = this.form.username;
+					// console.log(this.$store.state.user.username)
 					this.$store.commit('SET_TOKEN', res.data, {});
+
 					this.$get("userInfo/findById").then(response => {
-						this.form.username = '',
-							this.form.password = '',
+							// this.form.username = '',
+							// this.form.password = '',
+							// console.log(res.data)
+							// this.$store.state.user.username = res.data;
 							this.$router.push({
 								path: '/Contact'
 							})

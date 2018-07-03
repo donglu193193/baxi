@@ -176,6 +176,12 @@
 				this.full_loading = true;
 			},
 			submit() {
+				if(this.form.user == '' || this.form.username == '' || this.form.password == '' || this.form.re_password == ''){
+					this.$message({
+						type: 'error',
+						message: "字段不能为空"
+					});
+				}
 				this.$post("userInfo/registerUser", {
 					nickName: this.form.user,
 					email: this.form.username,
@@ -186,6 +192,9 @@
 						type: 'success',
 						message: res.msg
 					});
+					this.$router.push({
+						path: '/login'
+					})
 				}).catch(res => {
 
 				})

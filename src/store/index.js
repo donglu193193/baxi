@@ -25,15 +25,23 @@ const store = new Vuex.Store({
 		},
 		obj:{
 			tradeMarket:'',
-			virtualId:''
+			virtualId:'',
+			username:''
 		},
 		arr:[],
 		arr1:[],
 		arr2:[],
 		arr3:[],
+		home_arr:[],
 		userDate:{
-			hasRealValidate:''
-		}
+			hasRealValidate:'',
+			isValid:''
+		},
+		header_list:[],
+		tab_list:[],
+		basisName:'',
+		tradeMarket:'',
+		totalObj:''
 
 	},
 	getters :{
@@ -45,7 +53,8 @@ const store = new Vuex.Store({
 			state.user = user_data;
 			sessionStorage.setItem('token',token);
 			sessionStorage.setItem('user',JSON.stringify(user_data));
-		}
+		},
+
     },
   	actions: {
 

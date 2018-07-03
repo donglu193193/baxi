@@ -40,7 +40,7 @@
                 <h3>{{$t('table["list"]')}}</h3>
                 <div class="container">
                             <div class="row">
-                                <div class="col-md-4 col-sm-6" v-for="(item,index) in list">
+                                <div class="col-md-4 col-sm-6" v-for="(item,index) in $store.state.home_arr">
                                     <div class="serviceBox">
                                         <div class="service-icon">
                                             <img :src="item.mark_url" alt="" style="width:30px;height:30px;vertical-align: middle">
@@ -101,33 +101,10 @@ export default {
   },
   created() {
     this.init();
-    // var userJsonStr = sessionStorage.getItem('arr');
-    // this.list = JSON.parse(userJsonStr);
   },
   methods: {
     init() {
-      this.loading = true;
-      var reg1 = /http.*\,\ss/;
-      var reg2 = /short\_name.*\,\si/;
-      this.$sock.connect({}, frame => {
-        this.$sock.send('/app/getIndex', JSON.stringify({}));
-        this.$sock.subscribe(`/topic/getIndex`, data => {
-          var arr = [];
-          var res = JSON.parse(data.body).data;
-          console.log(res)
-          for (var i = 0; i < res.length; i++) {
-            arr[i] = {};
-            for (var k in res[i]) {
-              arr[i].children = res[i][k];
-              arr[i].mark_url = reg1.exec(k)[0].replace(', s', '');
-              arr[i].short_name = reg2.exec(k)[0].replace(', i', '').replace('short_name=', '');
-            }
-          }
-          this.$set(this.list, [])
-          // sessionStorage.setItem('arr',JSON.stringify(arr));
-          this.list=arr
-        })
-      })
+
     },
   }
 }

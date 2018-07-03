@@ -7,9 +7,9 @@
             <el-col :span="8"><div class="grid-content bg-purple">
               <ul class="data" :data="tab">
               <li>
-                  <p>{{trade}}</p>
+                  <p>{{$store.state.tab_list.trade}}</p>
                   <div>
-                    <img :src="url1" alt="" style="width:20px;height:20px;margin-top: 20px">
+                    <img :src="$store.state.tab_list.url1" alt="" style="width:20px;height:20px;margin-top: 20px">
                   </div>
               </li>
               <li>
@@ -19,16 +19,16 @@
                   </div>
               </li>
               <li>
-                  <p>{{market}}</p>
+                  <p>{{$store.state.tab_list.market}}</p>
                   <div>
-                    <img :src="url2" alt="" style="width:20px;height:20px;margin-top: 20px">
+                    <img :src="$store.state.tab_list.url2" alt="" style="width:20px;height:20px;margin-top: 20px">
                   </div>
               </li>
             </ul>
             </div></el-col>
             <el-col :span="16" style="border-left:1px solid #ccc;padding:10px"><div class="grid-content bg-purple-light">
-              <p style="border-bottom:1px solid #ccc">{{trade}} ({{newPrize}} {{market}})&nbsp;&nbsp;<i :class="increasePrize< 0 ? 'el-icon-caret-bottom':'el-icon-caret-top'" ></i> <span>{{increasePrize}}</span></p>
-             <p class="i18n" name="v-t">Volume de Transaçoes(24h)<br>{{sumamount}}&nbsp;&nbsp;{{market}}</p>
+              <p style="border-bottom:1px solid #ccc">{{$store.state.tab_list.trade}} ({{$store.state.tab_list.newPrize}} {{$store.state.tab_list.market}})&nbsp;&nbsp;<i :class="increasePrize< 0 ? 'el-icon-caret-bottom':'el-icon-caret-top'" ></i> <span>{{$store.state.tab_list.increasePrize}}</span></p>
+             <p class="i18n" name="v-t">Volume de Transaçoes(24h)<br>{{$store.state.tab_list.sumamount}}&nbsp;&nbsp;{{$store.state.tab_list.market}}</p>
             </div></el-col>
           </el-row>
        	</div>
@@ -43,14 +43,14 @@
                   <el-button slot="append" icon="el-icon-search" style="padding:14px 15px"></el-button>
                 </el-input>
               </div>
-              <el-tabs type="border-card"   >
-                <el-tab-pane   v-for="(item1,index) in header_list" :key="index" >
-                    <span  slot="label"   @click="get_web_data(item1.basis_name,index)"  style="display: block">
+              <el-tabs type="border-card"   id="tabs">
+                <el-tab-pane   v-for="(item1,index) in header_list" :key="index" style="padding:0">
+                    <span  slot="label"   @click="get_web_data(item1.basis_name,index)"  style="display: block;padding:0px 20px">
                       <img :src="item1.mark_url" alt="" style="width:20px;height:20px;vertical-align: middle;">
                       {{item1.basis_name}}
                     </span>
                     <table class="table" id="tickers">
-                        <tr v-for="(item,index) in tab_list" :key="index" v-model='select'   @click="getMarket(item.tradeMarket,item.zhuMarkUrl,item.ziMarkUrl,item.sumamount,item.newPrize,item.increasePrize)" >
+                        <tr v-for="(item,index) in $store.state.tab_list" :key="index" v-model='select'   @click="getMarket(item.tradeMarket,item.zhuMarkUrl,item.ziMarkUrl,item.sumamount,item.newPrize,item.increasePrize)" >
                             <td>{{item.tradeMarket}}</td>
                             <td><img :src="item.ziMarkUrl" alt="" style="width:20px;height:20px"></td>
                             <td>{{item.newPrize}}</td>
@@ -77,17 +77,17 @@
                   <div class="grid-content bg-purple">
                     <el-form ref="form" :model="form1" :label-position="labelPosition" label-width="80px">
                       <p class="i18n" name="price">Preço</p>
-                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{zhuVtotal}}</span>&nbsp;&nbsp;{{zhuMarket}}</div>
-                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{zhuFrozenTotal}}</span>&nbsp;&nbsp;{{zhuMarket}}</div>
+                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{$store.state.totalObj == 403 ? '--' : '$store.state.tab_list.zhuVtotal'}}</span>&nbsp;&nbsp;{{$store.state.tab_list.zhuMarket}}</div>
+                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{$store.state.totalObj == 403 ? '--' : '$store.state.tab_list.zhuFrozenTotal'}}</span>&nbsp;&nbsp;{{$store.state.tab_list.zhuMarket}}</div>
                       <el-form-item label="buy price:">
                         <el-input type="text"  ref="name" v-model="buyPrice" ></el-input>
                       </el-form-item>
                       <el-form-item label="Quantidade:">
                         <el-input type="text" v-model="buyNumber"></el-input>
                       </el-form-item>
-                      <div style="height:80px;line-height:25px">*Max.de comprar：&nbsp;<span>{{name}}</span>{{zhuMarket}}</div>
+                      <div style="height:80px;line-height:25px">*Max.de comprar：&nbsp;<span>{{$store.state.tab_list.name}}</span>{{$store.state.tab_list.zhuMarket}}</div>
                       <el-form-item>
-                        <el-button type="primary" size="small" class="buyOrSell">Comprar</el-button>
+                        <el-button type="primary" size="small" class="buyOrSell">{{$store.state.totalObj == 403 ?"请登录" : "Compar" }}</el-button>
                       </el-form-item>
                     </el-form>
                   </div>
@@ -96,17 +96,17 @@
                   <div class="grid-content bg-purple-light">
                     <el-form ref="form" :model="form" :label-position="labelPosition" label-width="80px">
                       <p class="i18n" name="price">Preço</p>
-                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{ziVtotal}}</span>&nbsp;&nbsp;{{ziMarket}}</div>
-                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{ziFrozenTotal}}</span>&nbsp;&nbsp;{{ziMarket}}</div>
+                      <div>{{$t('table["vTotal"]')}}：<span class="remainder">{{$store.state.tab_list.ziVtotal}}</span>&nbsp;&nbsp;{{$store.state.tab_list.ziMarket}}</div>
+                      <div>{{$t('table["frozenTotal"]')}}：<span class="remainder">{{$store.state.tab_list.ziFrozenTotal}}</span>&nbsp;&nbsp;{{$store.state.tab_list.ziMarket}}</div>
                       <el-form-item label="sell price:">
                         <el-input type="text"></el-input>
                       </el-form-item>
                       <el-form-item label="Quantidade:">
                         <el-input type="text"></el-input>
                       </el-form-item>
-                      <div style="height:80px;line-height:25px">*Max.de vendar：&nbsp;<span>0.000</span>{{zhuMarket}}</div>
+                      <div style="height:80px;line-height:25px">*Max.de vendar：&nbsp;<span>0.000</span>{{$store.state.tab_list.zhuMarket}}</div>
                       <el-form-item>
-                        <el-button type="primary" size="small" class="buyOrSell">Venda de</el-button>
+                        <el-button type="primary" size="small" class="buyOrSell">{{$store.state.totalObj == 403 ?"请登录" : "Venda de" }}</el-button>
                       </el-form-item>
                     </el-form>
                   </div>
@@ -203,104 +203,37 @@ export default {
     }
   },
   created() {
-        
-        
     this.init();
-    this.$sock.connect({}, frame => {
-      this.$sock.subscribe(`/topic/findAllPrizeByBasisName`, data => { //根据主市场查询子市场
-        this.tab_list = JSON.parse(data.body).data;
-        var aa = this.tab_list[0].tradeMarket;
-        var bb = this.tab_list[0].zhuMarkUrl;
-        var cc = this.tab_list[0].ziMarkUrl;
-        var dd = this.tab_list[0].sumamount;
-        var ee = this.tab_list[0].newPrize;
-        var ff = this.tab_list[0].increasePrize;
-        var arr = aa.split("_");
-        this.trade = arr[0];
-        this.market = arr[1];
-        this.url1 = bb;
-        this.url2 = cc;
-        this.sumamount = dd;
-        this.newPrize = ee;
-        this.increasePrize = ff;
-        sessionStorage.setItem('list',JSON.stringify(this.tab_list));
-        var list=sessionStorage.getItem("list");
-        this.tab_list=JSON.parse(list)
-        if (this.tab_list.length) {
-          this.getMarket(this.tab_list[0].tradeMarket, this.tab_list[0].zhuMarkUrl, this.tab_list[0].ziMarkUrl, this.tab_list[0].sumamount, this.tab_list[0].newPrize, this.tab_list[0].increasePrize)
-        }
-      });
-      this.$sock.subscribe(`/topic/findUserIdAndVirtualIdByTotal`, data => { //根据币种id和当前登录用户id查询钱包实体
-        if (JSON.parse(data.body).data === 403) {
-          // console.log(JSON.parse(data.body).data);
-          $(".buyOrSell").text("请登录");
-          $(".remainder").text("--")
-        }
-        // console.log(JSON.parse(data.body));
-        var vv = JSON.parse(data.body).data;
-        var arr = Object.keys(vv);
-        var newArr = [];
-        for (var i = 0; i < arr.length; i++) {
-          newArr[i] = {};
-          newArr[i].vName = arr[i];
-          newArr[i].attr = vv[arr[i]];
-        }
-        console.log(newArr)
-        sessionStorage.setItem('con',JSON.stringify(newArr));
-        this.zhuMarket = newArr[1].vName;
-        this.ziMarket = newArr[0].vName;
-        this.zhuVtotal = newArr[1].attr.vTotal;
-        this.ziVtotal = newArr[0].attr.vTotal;
-        this.zhuFrozenTotal = newArr[1].attr.frozenTotal;
-        this.ziFrozenTotal = newArr[0].attr.frozenTotal;
-      });
-      this.$sock.subscribe(`/topic/newDealPrize`, data => { //最新交易
-        this.tableData1 = JSON.parse(data.body).data;
-      });
-      this.$sock.subscribe(`/topic/historyEntrust`, data => { //历史交易
-        this.$store.state.arr = JSON.parse(data.body).data;
-      });
-      this.$sock.subscribe(`/topic/underway`, data => { //委托交易
-        this.$store.state.arr1 = JSON.parse(data.body).data;
-      });
-      this.$sock.subscribe(`/topic/buyShwo`, data => { //买单显示
-        this.$store.state.arr2 = JSON.parse(data.body).data;
-      });
-      this.$sock.subscribe(`/topic/sellShwo`, data => { //买单显示
-        this.$store.state.arr3 = JSON.parse(data.body).data;
-      });
-    });
+    // this.get_web_data();
+    // this.getMarket()
   },
   methods: {
+    get_web_data(basis_name){
+      this.$store.state.basisName = basis_name;
+      this.$sock.send('/app/findAllPrizeByBasisName', JSON.stringify({ //根据主市场查询子市场
+            tradeMarket:basis_name,
+      }));
+    },
     init(index) {
       this.$get("marketManage/findAllBasisNameGroupBy").then(res => { //查询主市场
         this.header_list = res.data;
-        var userJsonStr = sessionStorage.getItem('list');
-        this.tab_list=JSON.parse(userJsonStr);
-        console.log(this.tab_list)
-        var list = JSON.parse(userJsonStr);
-        console.log(list)
-        var arr = list[0].tradeMarket.split("_");
-        this.trade = arr[0];
-        this.market = arr[1];
-        this.url1 = list[0].zhuMarkUrl;
-        this.url2 = list[0].ziMarkUrl;
-        this.sumamount = list[0].sumamount;
-        this.newPrize = list[0].newPrize;
-        this.increasePrize = list[0].increasePrize;
-        if (res.data.length) {
-          this.get_web_data(res.data[0].basis_name)
+        if(!res.data.length){
+          return
         }
+        localStorage.setItem('basisName',res.data[0].basis_name);
+        this.$store.state.basisName = res.data[0].basis_name;
+        this.$store.state.header_list = res.data;
+        this.$sock.send('/app/findAllPrizeByBasisName', JSON.stringify({ //根据主市场查询子市场
+          tradeMarket:basis_name,
+        }));
+        this.$sock.send('/app/findUserIdAndVirtualIdByTotal', JSON.stringify({ //查询钱包实体
+        tradeMarket: aa,
+        id: sessionStorage.getItem("token")
+      }));
       }).catch(res => {
-        
+
       })
 
-    },
-    get_web_data(list) {
-      
-      this.$sock.send('/app/findAllPrizeByBasisName', JSON.stringify({ //根据主市场查询子市场
-        tradeMarket: list,
-      }));
     },
     getMarket(aa, bb, cc, dd, ee, ff) {
       this.$store.state.obj.tradeMarket = aa;
@@ -309,35 +242,27 @@ export default {
       this.$store.state.obj.sumamount = dd;
       this.$store.state.obj.newPrize = ee;
       this.$store.state.obj.increasePrize = ff;
-      var arr = aa.split("_");
-      this.trade = arr[0];
-      this.market = arr[1];
-      this.url1 = bb;
-      this.url2 = cc;
-      this.sumamount = dd;
-      this.newPrize = ee;
-      this.increasePrize = ff;
       this.$sock.send('/app/newDealPrize', JSON.stringify({ //最新成交
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
       }));
       this.$store.state.obj.tradeMarket = aa;
       this.$sock.send('/app/findUserIdAndVirtualIdByTotal', JSON.stringify({ //查询钱包实体
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
         id: sessionStorage.getItem("token")
       }));
       this.$sock.send('/app/historyEntrust', JSON.stringify({ //历史委托
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
         id: sessionStorage.getItem("token")
       }));
       this.$sock.send('/app/underway', JSON.stringify({ //委托交易
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
         id: sessionStorage.getItem("token")
       }));
       this.$sock.send('/app/buyShwo', JSON.stringify({ //买单显示
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
       }));
       this.$sock.send('/app/sellShwo', JSON.stringify({ //卖单显示
-        tradeMarket: aa,
+        tradeMarket: localStorage.getItem('basisName'),
       }));
 
     },

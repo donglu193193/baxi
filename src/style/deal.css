@@ -632,10 +632,10 @@ table tr:hover{
             color: white;
             position: relative;
             bottom: 0px;
-            -webkit-animation-name: bg1;
+            /*-webkit-animation-name: bg1;
             animation-name: bg1;
             animation-iteration-count: infinite;
-            animation-duration: 4s;
+            animation-duration: 4s;*/
             display: block;
         }
         #footer h3{

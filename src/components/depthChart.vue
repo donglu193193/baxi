@@ -24,10 +24,12 @@
         this.$get("index/selTdepth", {
           tradeMarket: "BTC_QC"
         }).then(res => {
+          // console.log(JSON.parse(res.data.asks))
           var asks = JSON.parse(res.data.asks) || [];
           var bids = JSON.parse(res.data.bids) || [];
           var obj = {};
           obj.sell = asks.map(res => {
+            console.log(111)
             return {
               price: res[0],
               amount: res[1],
@@ -53,6 +55,7 @@
             }
             obj['sell'][i]['total'] = total;
           }
+
           var gap = 10; //X轴偏移量 防止左右两部分连接以利于美观
           var canvas = document.getElementById('depth');
           var width = canvas.getAttribute('width');

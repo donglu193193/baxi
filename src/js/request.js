@@ -63,19 +63,19 @@ service.interceptors.response.use(
 		}
 	},
 	error => {
-		const res = response.data
-		if (!res.type) {
-			Message({
-				message: res.msg,
-				type: 'error',
-				duration: 5 * 1000
-			})}
+		// const res = response.data
+		// if (!res.type) {
+		// 	Message({
+		// 		message: res.msg,
+		// 		type: 'error',
+		// 		duration: 5 * 1000
+		// 	})}
 		// Message({
 		// 	message: error.message,
 		// 	type: 'error',
 		// 	duration: 5 * 1000
 		// })
-		return Promise.reject(error)
+		// return Promise.reject(error)
 	}
 )
 
